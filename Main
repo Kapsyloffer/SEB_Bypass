@@ -1,0 +1,53 @@
+using System;
+using Microsoft.Win32;
+
+namespace SetSwitchKey
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Introduction
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("***Crillz***");
+            Console.WriteLine();
+            #endregion
+
+            string path = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
+            string keyName = "HideFastUserSwitching";
+            RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(path);
+
+            //if admin user doesn't exist, create one and print the login, Usr = Administrator Password = FunkyTown2
+
+            while (true)
+            {
+                path = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
+                keyName = "HideFastUserSwitching";
+                var value = (int.Parse(registryKey.GetValue(keyName).ToString()));
+
+                if (value != 0)
+                {
+                    ChangeKey(path, keyName);
+                }
+                System.Threading.Thread.Sleep(4000);
+
+            }
+        }
+        public static void ChangeKey(string path, string keyName)
+        {
+            RegistryKey rk = Registry.LocalMachine.OpenSubKey(@path, true);
+            rk.SetValue(keyName, 0);
+
+            #region Print.
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(DateTime.Now);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(": Key \" ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(keyName);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" \" Changed!");
+            #endregion
+        }
+    }
+}
