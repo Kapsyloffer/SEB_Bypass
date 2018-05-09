@@ -37,9 +37,7 @@ namespace SetSwitchKey
                 {
                     Console.WriteLine(i);
                     RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(path[i]);
-                    int keyvalue = int.Parse(registryKey.GetValue(keyName[i]).ToString());
-                    Console.WriteLine(keyvalue);
-                var read_value = (keyvalue);
+                    int read_value = int.Parse(registryKey.GetValue(keyName[i]).ToString());
 
                     if (read_value != 0)
                     {
