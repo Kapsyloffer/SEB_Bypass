@@ -9,35 +9,52 @@ namespace SetSwitchKey
         {
             #region Introduction
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("***Crillz***");
+            Console.WriteLine("SEB_Bypass version 1.1 - Crille");
+            Console.WriteLine("**(Använd på egen risk)**");
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine();
             #endregion
 
-            string path = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
-            string keyName = "HideFastUserSwitching";
-            RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(path);
-
-            //if admin user doesn't exist, create one and print the login, Usr = Administrator Password = FunkyTown2
-
+            string[] path = new String[] //mer läggs till snart om nödvändigt.
+            {
+                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+                /*"Settings\\CurrentControlSet\\Services\\RasMan\\Parameters"*/
+            };
+            string[] keyName = new String[]
+            {
+                "HideFastUserSwitching"
+                /*"KeepRasConnections"*/
+            };
+            int[] value = new int[]
+            {
+                0,
+                1
+            };
             while (true)
             {
-                path = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System";
-                keyName = "HideFastUserSwitching";
-                var value = (int.Parse(registryKey.GetValue(keyName).ToString()));
 
-                if (value != 0)
+                for (int i = 0; i < path.Length; i++)
                 {
-                    ChangeKey(path, keyName);
+                    Console.WriteLine(i);
+                    RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(path[i]);
+                    int keyvalue = int.Parse(registryKey.GetValue(keyName[i]).ToString());
+                    Console.WriteLine(keyvalue);
+                var read_value = (keyvalue);
+
+                    if (read_value != 0)
+                    {
+                        ChangeKey(path[i], keyName[i], value[i]);
+                    }
                 }
                 System.Threading.Thread.Sleep(4000);
-
             }
         }
-        public static void ChangeKey(string path, string keyName)
+        public static void ChangeKey(string path, string keyName, int value)
         {
             RegistryKey rk = Registry.LocalMachine.OpenSubKey(@path, true);
-            rk.SetValue(keyName, 0);
+            rk.SetValue(keyName, value);
 
+            //Skriver ut vad som händer.
             #region Print.
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(DateTime.Now);
