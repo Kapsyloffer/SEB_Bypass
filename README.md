@@ -29,7 +29,7 @@ Gå till Kontrollpanelen\Användarkonton\Användarkonton -> Hantera Användarkon
 
 # Innan du startar SEB
 
-1. Kör programmet (det här) som Administratör.
+1. Kör programmet (det här) som Administratör. Filen fins tillgänglig som SetSwitchKey.exe
 
 2. Ha på det i bakgrunden då SEB körs.
 
